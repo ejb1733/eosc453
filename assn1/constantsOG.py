@@ -1,5 +1,7 @@
 import numpy as np
 
+FORCING = True
+
 n_boxes = 9
 
 # Initial carbon masses in boxes (in Gt)
