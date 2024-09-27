@@ -1,8 +1,8 @@
 import numpy as np
 
 MODIFIED_EMISSIONS = False
-FORCING = True
-FIRE = True
+FORCING = False
+FIRE = False
 
 n_boxes = 9
 
@@ -13,6 +13,8 @@ M2 = 725  # Surface Ocean
 M5 = 110  # Short-lived biota
 M7 = 60  # Deep Ocean
 """
+Mi0_onebox = np.array([725,0,0,0,0,0,0,0,0])
+
 Mi0_fourboxes = np.array([725,725,0,0,110,0,60,0,0])
 Mi0_perturbed_fourboxes = np.array([1000,725,0,0,110,0,60,0,0])
 
@@ -29,6 +31,9 @@ F_15 = 110  # Flux from Atmosphere to Short-lived Biota
 F_51 = 55  # Flux from Short-lived Biota to Atmosphere
 F_72 = 0  # Flux from Deep Ocean to Surface Ocean
 """
+Fi0_onebox = np.zeros((n_boxes, n_boxes))
+Fi0_onebox[0,1] = 90
+
 Fi0_fourboxes = np.zeros((n_boxes, n_boxes))
 
 Fi0_fourboxes[0,1] = 90

@@ -1,5 +1,6 @@
 import numpy as np
 import constants
+import time
 
 from emissions import emissions
 from emissions import modified_emissions
@@ -16,38 +17,15 @@ def calc_rate_const(Mi0,Fi0):
               rate_constant[r,c] = Fi0[r,c]/Mi0[r]
     return rate_constant
 
+rate_constants_onebox = calc_rate_const(Mi0=constants.Mi0_onebox,Fi0=constants.Fi0_onebox)
 rate_constants_fourboxes = calc_rate_const(Mi0=constants.Mi0_fourboxes,Fi0=constants.Fi0_fourboxes)
 rate_constants_nineboxes = calc_rate_const(Mi0=constants.Mi0_nineboxes,Fi0=constants.Fi0_nineboxes)
 
 # rate_constants = calc_rate_const(Mi0=constants.Mi0_nineboxes, Fi0=constants.Fi0_nineboxes)
 
-# Define a function to return n ODEs in accordance with our input-output flux model
-def ODEs_nineboxes(t,M):
+def ODEs_onebox(t,M):
   n = len(M)
   ODEs = np.zeros(n)
-
-  
-  for r in range(n):
-      ODEs[r] = -np.sum(M[r]*rate_constants_nineboxes[r,:]) + (rate_constants_nineboxes[:,r] @ M)
-
-  if constants.FORCING:
-     ODEs[0] = ODEs[0] + emissions(t)
-
-  if constants.FIRE:
-      fire_gt = ODEs[1] * 0.96
-      ODEs[1] = ODEs[1] - fire_gt
-      print(f'LONGLIVE_0: {ODEs[1] + fire_gt}, LONGLIVE_f: {ODEs[1]}, ATM BEFORE V AFTER: {ODEs[0]} vs {ODEs[0] + fire_gt}')
-      ODEs[0] = ODEs[0] + fire_gt
-
-  if constants.MODIFIED_EMISSIONS:
-      ODEs[0] = ODEs[0] + modified_emissions(t)
-
-  return ODEs
-
-def ODEs_fourboxes(t,M):
-  n = len(M)
-  ODEs = np.zeros(n)
-
   
   for r in range(n):
       ODEs[r] = -np.sum(M[r]*rate_constants_fourboxes[r,:]) + (rate_constants_fourboxes[:,r] @ M)
@@ -58,7 +36,50 @@ def ODEs_fourboxes(t,M):
   if constants.FIRE:
       fire_gt = ODEs[1] * 0.96
       ODEs[1] = ODEs[1] - fire_gt
-      print(f'LONGLIVE_0: {ODEs[1] + fire_gt}, LONGLIVE_f: {ODEs[1]}, ATM BEFORE V AFTER: {ODEs[0]} vs {ODEs[0] + fire_gt}')
+      ODEs[0] = ODEs[0] + fire_gt
+
+  return ODEs
+
+# Define a function to return n ODEs in accordance with our input-output flux model
+def ODEs_nineboxes(t,M):
+  # define the 
+  n = len(M)
+  ODEs = np.zeros(n)
+  for r in range(n):
+      ODEs[r] = -np.sum(M[r]*rate_constants_nineboxes[r,:]) + (rate_constants_nineboxes[:,r] @ M)
+
+  if constants.FORCING:
+     ODEs[0] = ODEs[0] + emissions(t)
+
+  if constants.FIRE:
+      long_biota_fire_gt = ODEs[5] * 0.96
+      short_biota_fire_gt = ODEs[4] * 0.96
+      ODEs[5] = ODEs[5] - long_biota_fire_gt
+      ODEs[4] = ODEs[4] - short_biota_fire_gt
+    #   print(f'LONGLIVE_0: {ODEs[1] + fire_gt}, LONGLIVE_f: {ODEs[1]}, ATM BEFORE V AFTER: {ODEs[0]} vs {ODEs[0] + fire_gt}')
+      ODEs[0] = ODEs[0] + long_biota_fire_gt + short_biota_fire_gt
+
+  if constants.MODIFIED_EMISSIONS:
+      ODEs[0] = ODEs[0] + modified_emissions(t)
+
+  return ODEs
+
+def ODEs_fourboxes(t,M):
+  n = len(M)
+  ODEs = np.zeros(n)
+  
+  for r in range(n):
+      ODEs[r] = -np.sum(M[r]*rate_constants_fourboxes[r,:]) + (rate_constants_fourboxes[:,r] @ M)
+
+  if constants.FORCING: 
+    ODEs[0] = ODEs[0] + emissions(t)
+
+  if constants.MODIFIED_EMISSIONS: 
+    ODEs[0] = ODEs[0] + modified_emissions(t)
+
+  if constants.FIRE:
+      fire_gt = ODEs[1] * 0.96
+      ODEs[1] = ODEs[1] - fire_gt
       ODEs[0] = ODEs[0] + fire_gt
 
   return ODEs
@@ -77,6 +98,9 @@ def rk4(fxy, x0, xf, y0, N):
     #         Y = the estimated dependent variable at each value of the independent variable
     #         --> this variable is a 1D numpy array if only one equation is solved
     #         --> it is an M-D numpy array [y1(x) y2(x) ... ] for multiple (M) equations
+
+    # record start time of RK4 for measuring efficiency
+    start = time.time()
 
     #compute step size and size of output variables
     if N < 2:
@@ -106,9 +130,11 @@ def rk4(fxy, x0, xf, y0, N):
         X[ii+1] = x
         Y[ii+1,:] = y
 
+    # record end time of RK4 to print time elapsed in the function 
+    end = time.time()
+    print('RK4 Time Elapsed: ' + str('%.3f'%(end - start)) + ' seconds')
+
     return X, Y
-
-
     #Constants, Integration time, time steps and initial conditions: This information could be contained in a separate input file that you call
 
 def euler_method(fxy, x0, xf, y0, N):
@@ -124,6 +150,9 @@ def euler_method(fxy, x0, xf, y0, N):
     #         Y = the estimated dependent variable at each value of the independent variable
     #         --> this variable is a 1D numpy array if only one equation is solved
     #         --> it is an M-D numpy array [y1(x) y2(x) ... ] for multiple (M) equations
+
+    # record start time of euler for measuring efficiency
+    start = time.time()
 
     #compute step size and size of output variables
     if N < 2:
@@ -149,7 +178,9 @@ def euler_method(fxy, x0, xf, y0, N):
         X[ii+1] = x 
         Y[ii+1,:] = y
 
+    # record end time of euler to print time elapsed in the function 
+    end = time.time()
+    print('Euler Time Elapsed: ' + str('%.3f'%(end - start)) + ' seconds')
+
     return X, Y
-
-
     #Constants, Integration time, time steps and initial conditions: This information could be contained in a separate input file that you call
