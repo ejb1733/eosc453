@@ -27,7 +27,22 @@ def emissions(yr):
     return e
 
 def modified_emissions(yr):
+
+    # Function defining our modified emission scenario over the interval 1990-2100
+    # extended to pre-industrial (assuming linear increase from 0 in 1850 to 1900) and assuming constant input of 8.125Gt/yr after 2100
+    #
+    # Example of use:
+    #     import numpy as np
+    #     import matplotlib.pyplot as plt
+    #     yr = np.arange(0,2500, 10)
+    #     e = modified_emissions(yr)
+    #     plt.plot(yr, e)
+    #     plt.show() 
+
     t_yr = np.array([0, 1850, 1990, 2000, 2010, 2020, 2030, 2040, 2050, 2060, 2070, 2080, 2090, 2100, 2110, 2120, 10000])
+
+    # CO2 forcing continues after 2100 as a constant value of 8.125 Gt/yr
+
     e_GtC_yr = np.array([0, 0,  6.875, 8.125, 9.375, 12.5, 14.375, 16.25, 17.5, 19.75, 21.25, 23.125, 26.25, 28.75, 8.125, 8.125, 8.125])
 
     e = np.interp(yr, t_yr, e_GtC_yr)

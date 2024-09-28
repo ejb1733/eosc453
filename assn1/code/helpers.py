@@ -16,6 +16,7 @@ def calc_rate_const(Mi0,Fi0):
     #         rate_constant: a 9x9 matrix of our boxes' rate constants k_ij
 
     n_boxes = len(Mi0)
+
     # initialize our 9x9 rate constant output array
     rate_constant = np.zeros((n_boxes, n_boxes))
 
@@ -32,15 +33,29 @@ rate_constants_nineboxes = calc_rate_const(Mi0=constants.Mi0_nineboxes,Fi0=const
 
 # Define a function to return n ODEs in accordance with our input-output flux model
 def ODEs_nineboxes(t,M):
-  # define the 
+  
+  # The inputs to the function are:
+  #         t: the current time in our box-model evolution
+  #         M: an array of size 9 representing each box's mass at time t
+
+  # The output of the function is:
+  #         ODEs: an array of size 9 where each entry is the net flux in/out of that box
+
   n = len(M)
+
+  # initialize a size 9 array which will be updated with ODEs
   ODEs = np.zeros(n)
+
   for r in range(n):
+      # calculate the net flux of each ODE
       ODEs[r] = -np.sum(M[r]*rate_constants_nineboxes[r,:]) + (rate_constants_nineboxes[:,r] @ M)
 
+  # control flow for adding IPCC A2 emissions
   if constants.FORCING:
+     # add emissions to our ODE
      ODEs[0] = ODEs[0] + emissions(t)
 
+  # control flow for adding modified emissions
   if constants.MODIFIED_EMISSIONS:
       ODEs[0] = ODEs[0] + modified_emissions(t)
 
