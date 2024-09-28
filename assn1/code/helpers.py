@@ -5,40 +5,30 @@ import time
 from emissions import emissions
 from emissions import modified_emissions
 
-# Define rate constants k_ij; returns n x n matrix
+# Define a function to calculate rate constants k_ij
 def calc_rate_const(Mi0,Fi0):
-    n_boxes = len(Mi0)
 
+    # The inputs to the function are:
+    #         Mi0: a list of our boxes' initial masses
+    #         Fi0: a 9 x 9 matrix of our boxes' fluxes F_ij
+
+    # The output of the function is:
+    #         rate_constant: a 9x9 matrix of our boxes' rate constants k_ij
+
+    n_boxes = len(Mi0)
+    # initialize our 9x9 rate constant output array
     rate_constant = np.zeros((n_boxes, n_boxes))
-    rate_constant_test = np.zeros((n_boxes, n_boxes))
+
     for c in range(n_boxes):
         for r in range(n_boxes):
+            # for each flux F_cr,
+            # calculate the according rate constant
             if (Mi0[r] != 0):
               rate_constant[r,c] = Fi0[r,c]/Mi0[r]
     return rate_constant
 
-rate_constants_onebox = calc_rate_const(Mi0=constants.Mi0_onebox,Fi0=constants.Fi0_onebox)
-rate_constants_fourboxes = calc_rate_const(Mi0=constants.Mi0_fourboxes,Fi0=constants.Fi0_fourboxes)
+# define our rate constant matrix for use in other files
 rate_constants_nineboxes = calc_rate_const(Mi0=constants.Mi0_nineboxes,Fi0=constants.Fi0_nineboxes)
-
-# rate_constants = calc_rate_const(Mi0=constants.Mi0_nineboxes, Fi0=constants.Fi0_nineboxes)
-
-def ODEs_onebox(t,M):
-  n = len(M)
-  ODEs = np.zeros(n)
-  
-  for r in range(n):
-      ODEs[r] = -np.sum(M[r]*rate_constants_fourboxes[r,:]) + (rate_constants_fourboxes[:,r] @ M)
-
-  if constants.FORCING:
-     ODEs[0] = ODEs[0] + emissions(t)
-
-  if constants.FIRE:
-      fire_gt = ODEs[1] * 0.96
-      ODEs[1] = ODEs[1] - fire_gt
-      ODEs[0] = ODEs[0] + fire_gt
-
-  return ODEs
 
 # Define a function to return n ODEs in accordance with our input-output flux model
 def ODEs_nineboxes(t,M):
@@ -51,36 +41,8 @@ def ODEs_nineboxes(t,M):
   if constants.FORCING:
      ODEs[0] = ODEs[0] + emissions(t)
 
-  if constants.FIRE:
-      long_biota_fire_gt = ODEs[5] * 0.96
-      short_biota_fire_gt = ODEs[4] * 0.96
-      ODEs[5] = ODEs[5] - long_biota_fire_gt
-      ODEs[4] = ODEs[4] - short_biota_fire_gt
-    #   print(f'LONGLIVE_0: {ODEs[1] + fire_gt}, LONGLIVE_f: {ODEs[1]}, ATM BEFORE V AFTER: {ODEs[0]} vs {ODEs[0] + fire_gt}')
-      ODEs[0] = ODEs[0] + long_biota_fire_gt + short_biota_fire_gt
-
   if constants.MODIFIED_EMISSIONS:
       ODEs[0] = ODEs[0] + modified_emissions(t)
-
-  return ODEs
-
-def ODEs_fourboxes(t,M):
-  n = len(M)
-  ODEs = np.zeros(n)
-  
-  for r in range(n):
-      ODEs[r] = -np.sum(M[r]*rate_constants_fourboxes[r,:]) + (rate_constants_fourboxes[:,r] @ M)
-
-  if constants.FORCING: 
-    ODEs[0] = ODEs[0] + emissions(t)
-
-  if constants.MODIFIED_EMISSIONS: 
-    ODEs[0] = ODEs[0] + modified_emissions(t)
-
-  if constants.FIRE:
-      fire_gt = ODEs[1] * 0.96
-      ODEs[1] = ODEs[1] - fire_gt
-      ODEs[0] = ODEs[0] + fire_gt
 
   return ODEs
 
@@ -171,7 +133,7 @@ def euler_method(fxy, x0, xf, y0, N):
     #begin computational loop
     for ii in range(N):
 
-        k1 = np.array([h * val for val in fxy(x,y)]) #evaluate function fxy; depending on equation, k1-4 can be complex; this is why we make Y and y 
+        k1 = np.array([h * val for val in fxy(x,y)]) #evaluate function fxy; depending on equation, k1 can be complex; this is why we make Y & y 
 
         y += (k1)
         x += h

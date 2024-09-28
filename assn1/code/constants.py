@@ -97,4 +97,8 @@ Fi0_nineboxes[8,0] = F_91
 
 label_arr = ['m' + str(i+1) for i in range(9)]
 
+ninebox_legend_arr = ['(1) Atmosphere', '(2) Surface water ', '(3) Surface biota ',
+                      '(4) Intermediate and Deep water ', '(5) Short-lived biota ', '(6) Long-lived biota ',
+                      '(7) Litter ', '(8) Soil ', '(9) Peat ']
+
 print(label_arr)

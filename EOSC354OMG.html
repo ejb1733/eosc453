@@ -1,0 +1,194 @@
+ 
+<html>
+<head>
+<title>EOSC 354: Analysis and Processing of Discrete Data</title>
+
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<style type="text/css">
+<!--
+a:hover {  color: #CC0000}
+-->
+</style>
+</head>
+<body bgcolor="#D7DFFF" text="#000000" link="#000066" vlink="#FF6666" alink="#CC0000" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0">
+<div align="center"> <br>
+  <table width="95%" border="1" cellspacing="0" cellpadding="5" bgcolor="#FFFFFF" bordercolor="#CCCCCC" align="center" height="95%">
+    <tr align="center" valign="top"> 
+      <td> 
+        <table width="99%" border="0" cellspacing="0" cellpadding="0" height="65" background="../../../images/eosheader_bg.gif">
+          <tr align="left" valign="top"> 
+            <td><a href="http://www.eos.ubc.ca/"><img src="../../images/eosheader_noUBCLogo.gif" width="550" height="65" alt="Back To EOS Main Page" name="EOSHeader" border="0"></a></td>
+            <td width="55" align="right"><a href="http://www.ubc.ca"><img src="../../images/eosheader_ubclogo.gif" width="55" height="65" alt="Go To UBC Main Site" border="0"></a></td>
+          </tr>
+        </table>
+        <br>
+        <table width="99%" border="0" cellspacing="0" cellpadding="0">
+          <tr align="left" valign="top"> 
+            <td class="FacultyText">
+              <div align="right"></div>
+              <h1><font color="#003366">EOSC 354: Analysis and Processing of Discrete 
+                Data </font></h1>
+              <p> 
+              <blockquote> 
+                <div class=Section1> 
+                  <p>Instructor: Daniel Trad<br>
+                    Rm 231 Geophysics &amp; Astronomy Building<br>
+                    Campus Phone: 822-5633<br>
+                    Email: <a href="mailto:dtrad@geop.ubc.ca">dtrad@geop.ubc.ca</a> </p>
+                  <p><b>Introduction</b></p>
+                </div>
+                <blockquote> 
+                  <div class=Section1>A course in the analysis and processing 
+                    of data is of absolutely central importance in a majority 
+                    of disciplines. In Geophysics, our observations of the earth, 
+                    our data, are often gathered in&nbsp; the form of signals.&nbsp; 
+                    These signals can be manipulated to extract information from 
+                    them.&nbsp; A particularly important task, is the identification 
+                    and separation of signal from noise.&nbsp; This quest is application 
+                    dependent, because what is signal to some applications may 
+                    be noise to others.&nbsp; Also, signal and noise vary in time 
+                    and frequency content from discipline to discipline. Different 
+                    transformations and filters are designed with this in mind. 
+                    A deep comprehension of how transforms and <br>
+                    filters work often allows one the extraction of useful information 
+                    from noisy data. 
+                    <p>These signals are often recorded as a discrete set of numbers 
+                      over time, in which case we call them time series. This 
+                      course deals mainly with the analysis of time series. The 
+                      same techniques can be use for any series of numbers, independently 
+                      of the independent variable utilized. <br>
+                      The principles and techniques that we will explore here 
+                      have application to fields such as astronomy, economics, 
+                      statistics, electrical engineering, etc.
+                  </div>
+                  <div class=Section1> 
+                    <p>A very important ingredient of any course is the book. 
+                      <br>
+                      There is no "ideal" book for this course, because most text 
+                      books on signal processing are written for electrical engineers, 
+                      rather than Geophysicists.&nbsp; However, following a book 
+                      makes the course easier&nbsp; for everybody. Therefore, 
+                      we will use the following book, 
+                    <p><i>Signal Processing and Linear Systems by B.P. Lathi (Berkeley-Cambridge). 
+                      </i>
+                    <p>We will use most of this book in detail, some parts in 
+                      less detail and very few parts not at all. The book contains 
+                      many exercises in Matlab.&nbsp; Students do not need any 
+                      prior knowledge of Matlab. The introductory lecture in the 
+                      first laboratory period will give you all the required ammunition 
+                      and will allow you to master this important language placing 
+                      a very important tool at your disposal. 
+                  </div>
+                </blockquote>
+                <div class=Section1> 
+                  <p><b>Course evaluation</b>
+                </div>
+                <blockquote> 
+                  <div class=Section1>The grade for the course consists of;&nbsp;</div>
+                </blockquote>
+                <ol>
+                  <ol>
+                    <div class=Section1>1 - Three problem sets&nbsp;</div>
+                    <div class=Section1>2 - One mid-term exam&nbsp;</div>
+                    <div class=Section1>3 - One final exam <br>
+                      4-&nbsp; Six laboratory writeups.</div>
+                  </ol>
+                </ol>
+                <blockquote> 
+                  <div class=Section1>The Final Grade is evaluated, approximately, 
+                    by;</div>
+                  <div class=Section1>FINAL GRADE = 15% x (1) + 15% x (2) + 30% 
+                    x (3) + 40% x (4)</div>
+                  <div class=Section1>&nbsp; 
+                    <p>The following is a tentative outline, similar to what I 
+                      followed last year. I will integrate the book into the course 
+                      as much, and as well as possible, while we process along.&nbsp;
+                  </div>
+                </blockquote>
+                <div class=Section1><b>Outline</b></div>
+                <blockquote> 
+                  <div class=Section1>The numbers inside the [ ] indicate the 
+                    number of lectures to be devoted to each topic. The relevant 
+                    chapters in the book are also shown. 
+                    <p>[2]&nbsp; <b>Systems and signals. Delta function. Unit 
+                      step function. Linear systems. Convolution. Impulse response.</b> 
+                    <blockquote>Chapters: 1 and 2</blockquote>
+                  </div>
+                  <div class=Section1>[3] <b>Decomposition by means of orthogonal 
+                    functions. Basis functions. Correlation. Trigonometric bases 
+                    functions. Least squares. Complex Numbers</b></div>
+                  <div class=Section1> 
+                    <blockquote>Chapters: B and 3</blockquote>
+                    [3] <b>Fourier series and Fourier transform. Amplitude and 
+                    phase. Periodicity and symmetry. Parseval's theorem.</b></div>
+                  <blockquote> 
+                    <div class=Section1>Chapters: 3 and 4</div>
+                  </blockquote>
+                  <div class=Section1>[2] <b>Special functions. Properties of 
+                    the Fourier transform. Duality, symmetry, scaling and shiftting.</b></div>
+                  <blockquote> 
+                    <div class=Section1><b>C</b>hapters: 1, 2 and 4</div>
+                  </blockquote>
+                  <div class=Section1>[2]&nbsp; <b>Filters and linear systems. 
+                    Time and frequency domains. Causality and realizability</b></div>
+                  <blockquote> 
+                    <div class=Section1>Chapter: 1, 3 and 4</div>
+                  </blockquote>
+                  <div class=Section1> 
+                    <div class=Section1>[2]<b>&nbsp; Sampling theorem, aliasing 
+                      and reconstruction. Data truncation and windowing. Modulation.</b></div>
+                    <blockquote> 
+                      <div class=Section1>Chapter: 5</div>
+                    </blockquote>
+                    [2] <b>Discrete Fourier transform, FFT, circular and periodic 
+                    convolution.</b></div>
+                  <blockquote> 
+                    <div class=Section1>Chapters: 5</div>
+                  </blockquote>
+                  <div class=Section1>[2] <b>Laplace and Z Transforms. Convolution 
+                    and deconvolution in the Z transform domain.</b></div>
+                  <blockquote> 
+                    <div class=Section1>Chapter: 11&nbsp;</div>
+                  </blockquote>
+                  <div class=Section1>[2] <b>Dipole decomposition. Roots and poles. 
+                    Minimum phase</b>.</div>
+                  <blockquote> 
+                    <div class=Section1>Chapter: 9</div>
+                  </blockquote>
+                  <div class=Section1>[2] <b>FIR and IIR filters</b>. <b>Separation 
+                    of signal and noise.</b></div>
+                  <blockquote> 
+                    <div class=Section1>Chapters: 9,10 and 12</div>
+                  </blockquote>
+                  <div class=Section1>[2] <b>Recursive filters and seismic applications. 
+                    Filter design. Autoregresive and moving average filters.</b></div>
+                  <blockquote> 
+                    <div class=Section1>Chapter: 11</div>
+                  </blockquote>
+                  <div class=Section1>[1] <b>Introduction to other transforms</b>: 
+                    <b>2D FT. Wavelet transform.&nbsp; S-transform.&nbsp; Radon 
+                    transform</b></div>
+                  <blockquote> 
+                    <div class=Section1>Chapter: None</div>
+                  </blockquote>
+                </blockquote>
+              </blockquote>
+              </td>
+          </tr>
+        </table>
+        <p>&nbsp;</p>
+        <hr width="99%" align="center" size="1" id="CopyrightRule">
+        <div align="center"><br>
+          <font size="2">Last Updated:
+          <!-- #BeginDate format:Am1 -->August 27, 2002<!-- #EndDate -->
+          Email: <a href="mailto:webmaster@eos.ubc.ca">webmaster@eos.ubc.ca</a><br>
+          Copyright &copy; 2000 Deartment of Earth and Ocean Sciences,<br>
+          University of British Columbia. All Rights Reserved.</font></div>
+      </td>
+    </tr>
+  </table>
+  <p>&nbsp;</p>
+</div>
+</body>
+
+</html>

@@ -33,5 +33,3 @@ def modified_emissions(yr):
     e = np.interp(yr, t_yr, e_GtC_yr)
 
     return e
-
-print(modified_emissions(2110))
