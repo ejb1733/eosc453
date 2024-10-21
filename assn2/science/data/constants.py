@@ -1,19 +1,44 @@
 import numpy as np
 
-TAU = 0.63
-RADIUS_E = 6371 * 10**3
+# define Stefan-Boltzmann constant
 SIGMA_B = 5.6696 * 10**-8
+
+# define solar constant
 SOLAR_CONST = 1368
+
+# define radius of Earth
+RADIUS_E = 6371 * 10**3
+
+# define surface area of Earth
 SAREA_EARTH = 4*np.pi*RADIUS_E**2
 
-GAMMAS = np.array([0.1076, 0.2277, 0.3045, 0.3045, 0.2277, 0.1076])
+# define total emissivity of Earth
+EPSILON = 1
 
-# surface fraction
+# define atmospheric transmissivity
+TAU = 0.63
+
+# define albedos for differing forms of matter
+ALBEDO_SKY   = 0.2
+ALBEDO_LAND  = 0.4
+ALBEDO_WATER = 0.1
+ALBEDO_ICE   = 0.6
+
+# define densities (kg*m^{-3}) for differing forms of matter
+DENSITY_LAND  = 2500
+DENSITY_WATER = 1028
+DENSITY_ICE   = 900
+
+# define surface fraction
 # estimates for zones 1-6: [  z1  ,   z2  ,   z3  ,   z4  ,   z5  ,   z6  ]  
 AREA_FRACTIONS = np.array( [0.0670, 0.1830, 0.2500, 0.2500, 0.1830, 0.0670])
+
 LAND_FRACTIONS = np.array( [0     , 0.7   , 0.20  , 0.32  , 0.50  ,  0.35 ])
 OCEAN_FRACTIONS = np.array([0.52  , 0.93  , 0.80  , 0.68  , 0.50  ,  0.50 ])
 ICE_FRACTIONS = np.array(  [0.48  , 0     , 0.80  , 0     , 0     ,  0.15 ])
+
+# define zone-dependent geometric factors
+GAMMAS = np.array([0.1076, 0.2277, 0.3045, 0.3045, 0.2277, 0.1076])
 
 pcz_avgs = np.empty(shape=6); pcz_avgs.fill(50000000)
 
