@@ -1,15 +1,15 @@
 import numpy as np
 
-# define Stefan-Boltzmann constant
+# define Stefan-Boltzmann constant [W * m^{-2} * K^{-4}]
 SIGMA_B = 5.6696 * 10**-8
 
-# define solar constant
+# define solar constant [W * m^{-2}]
 SOLAR_CONST = 1368
 
-# define radius of Earth
+# define radius of Earth [m]
 RADIUS_E = 6371 * 10**3
 
-# define surface area of Earth
+# define surface area of Earth [m^2]
 SAREA_EARTH = 4*np.pi*RADIUS_E**2
 
 # define total emissivity of Earth
@@ -18,16 +18,26 @@ EPSILON = 1
 # define atmospheric transmissivity
 TAU = 0.63
 
-# define albedos for differing forms of matter
+# define albedos for land, water, ice
 ALBEDO_SKY   = 0.2
 ALBEDO_LAND  = 0.4
 ALBEDO_WATER = 0.1
 ALBEDO_ICE   = 0.6
 
-# define densities (kg*m^{-3}) for differing forms of matter
+# define densities [kg*m^{-3}] for land, water, ice
 DENSITY_LAND  = 2500
 DENSITY_WATER = 1028
 DENSITY_ICE   = 900
+
+# define thermal scale depth [m] for land, water, ice
+Z_LAND  = 1
+Z_WATER = 70
+Z_ICE   = 1
+
+# define specific heat capacities [J * kg * K^{-1}] for land, water, ice
+C_LAND  = 790
+C_WATER = 4187
+C_ICE   = 2060
 
 # define surface fraction
 # estimates for zones 1-6: [  z1  ,   z2  ,   z3  ,   z4  ,   z5  ,   z6  ]  
