@@ -44,28 +44,30 @@ C_ICE   = 2060
 AREA_FRACTIONS = np.array( [0.0670, 0.1830, 0.2500, 0.2500, 0.1830, 0.0670])
 
 LAND_FRACTIONS = np.array( [0     , 0.7   , 0.20  , 0.32  , 0.50  ,  0.35 ])
-OCEAN_FRACTIONS = np.array([0.52  , 0.93  , 0.80  , 0.68  , 0.50  ,  0.50 ])
+WATER_FRACTIONS = np.array([0.52  , 0.93  , 0.80  , 0.68  , 0.50  ,  0.50 ])
 ICE_FRACTIONS = np.array(  [0.48  , 0     , 0.80  , 0     , 0     ,  0.15 ])
 
-# define zone-dependent geometric factors
+# define geometric factors
+# for zones 1-6:  [  z1  ,   z2  ,   z3  ,   z4  ,   z5  ,   z6  ]
 GAMMAS = np.array([0.1076, 0.2277, 0.3045, 0.3045, 0.2277, 0.1076])
 
-pcz_avgs = np.empty(shape=6); pcz_avgs.fill(50000000)
+# define area-averaged properties
+pcz_avgs = (LAND_FRACTIONS  * DENSITY_LAND  * C_LAND  * Z_LAND) + (WATER_FRACTIONS * DENSITY_WATER * C_WATER * Z_WATER) + (ICE_FRACTIONS   * DENSITY_ICE   * C_ICE   * Z_ICE)
 
-alpha_skys = np.empty(shape=6); alpha_skys.fill(0.7)
+albedo_avgs = LAND_FRACTIONS * ALBEDO_LAND + WATER_FRACTIONS * ALBEDO_WATER + ICE_FRACTIONS * ALBEDO_ICE
 
-alpha_avgs = np.empty(shape=6); alpha_avgs.fill(0.5)
+albedo_skys = np.empty(shape=6); albedo_skys.fill(ALBEDO_SKY)
 
-zone_sareas = np.empty(shape=6)
-for a in range(6):
-    zone_sareas[a] = AREA_FRACTIONS[a] * SAREA_EARTH
+zone_sareas = AREA_FRACTIONS * SAREA_EARTH
 
 # intra-zonal constants
 boundary_lengths = np.array([2.0015*10**7, 3.4667*10**7, 4.0030*10**7, 3.4667*10**7, 2.0015*10**7])
 thermal_exchange_coefficients = np.array([1*10**7, 1*10**7, 1*10**7, 5*10**7, 1*10**7])
 thermal_exchange_rates = boundary_lengths * thermal_exchange_coefficients
 
-thermal_exchange_rates = np.zeros(6)
+# start q2 by assuming all intra-zonal transfer is suppressed (k_{ij} = 0)
+# thermal_exchange_rates = np.zeros(6)
+# thermal_exchange_rates[2] = 2*10**14
 
 print(f'thermal exchange rates:   {thermal_exchange_rates}')
 
@@ -74,3 +76,7 @@ print(f'surface area of zone 1: {zone_sareas[0]}')
 print(f'fraction of earth surface area in zone 1: {zone_sareas[0]/SAREA_EARTH}')
 print(f'')
 print(f'')
+
+print(pcz_avgs)
+print(albedo_avgs)
+print(zone_sareas)

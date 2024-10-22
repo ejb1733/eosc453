@@ -1,7 +1,10 @@
 import numpy as np
 
 from .forcings import solarflux, sigma
-from .data import constants as const
+# from data import constants as const
+from data.constants import *
+
+okwtf = 1
 
 # Define function for returning n ODEs in accordance with our temperature model
 def ODEs_T(t,T, VOLC=False):
@@ -22,13 +25,15 @@ def ODEs_T(t,T, VOLC=False):
     # if VOLC:
     #     sigma = sigma(t)
 
-    ODEs[0] = (1/const.pcz_avgs[0]) * (const.GAMMAS[0] * (1-const.alpha_skys[0])*(1-const.alpha_avgs[0])*sigma*const.SOLAR_CONST - const.TAU*const.SIGMA_B*T[0]**4) + const.thermal_exchange_rates[0]/(const.zone_sareas[0]*const.pcz_avgs[0])*(T[1]-T[0])
+    # print(f'GAMMAS: {GAMMAS}, ALBEDOS AVGS: {albedo_avgs}')
+
+    ODEs[0] = (1/pcz_avgs[0]) * (GAMMAS[0] * (1-albedo_skys[0])*(1-albedo_avgs[0])*sigma*SOLAR_CONST - TAU*SIGMA_B*T[0]**4) + thermal_exchange_rates[0]/(zone_sareas[0]*pcz_avgs[0])*(T[1]-T[0])
 
     for r in range(1,n-1):
         # calculate temperature at time t for each ODE
-        ODEs[r] = (1/const.pcz_avgs[r]) * (const.GAMMAS[r] * (1-const.alpha_skys[r])*(1-const.alpha_avgs[r])*sigma*const.SOLAR_CONST - const.TAU*const.SIGMA_B*T[r]**4) + 1/(const.zone_sareas[r]*const.pcz_avgs[r])*(-const.thermal_exchange_rates[r-1]*(T[r]-T[r-1]) + const.thermal_exchange_rates[r]*(T[r+1]-T[r]))
+        ODEs[r] = (1/pcz_avgs[r]) * (GAMMAS[r] * (1-albedo_skys[r])*(1-albedo_avgs[r])*sigma*SOLAR_CONST - TAU*SIGMA_B*T[r]**4) + 1/(zone_sareas[r]*pcz_avgs[r])*(-thermal_exchange_rates[r-1]*(T[r]-T[r-1]) + thermal_exchange_rates[r]*(T[r+1]-T[r]))
 
-    ODEs[5] = (1/const.pcz_avgs[5]) * (const.GAMMAS[5] * (1-const.alpha_skys[5])*(1-const.alpha_avgs[5])*sigma*const.SOLAR_CONST - const.TAU*const.SIGMA_B*T[5]**4) + const.thermal_exchange_rates[4]/(const.zone_sareas[5]*const.pcz_avgs[5])*(T[5]-T[4])
+    ODEs[5] = (1/pcz_avgs[5]) * (GAMMAS[5] * (1-albedo_skys[5])*(1-albedo_avgs[5])*sigma*SOLAR_CONST - TAU*SIGMA_B*T[5]**4) + thermal_exchange_rates[4]/(zone_sareas[5]*pcz_avgs[5])*(T[5]-T[4])
 
     return ODEs
 
