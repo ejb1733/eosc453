@@ -52,13 +52,13 @@ ICE_FRACTIONS = np.array(  [0.48  , 0     , 0.80  , 0     , 0     ,  0.15 ])
 GAMMAS = np.array([0.1076, 0.2277, 0.3045, 0.3045, 0.2277, 0.1076])
 
 # define area-averaged properties
-pcz_avgs = (LAND_FRACTIONS  * DENSITY_LAND  * C_LAND  * Z_LAND) + (WATER_FRACTIONS * DENSITY_WATER * C_WATER * Z_WATER) + (ICE_FRACTIONS   * DENSITY_ICE   * C_ICE   * Z_ICE)
+PCZ_AVGS = (LAND_FRACTIONS  * DENSITY_LAND  * C_LAND  * Z_LAND) + (WATER_FRACTIONS * DENSITY_WATER * C_WATER * Z_WATER) + (ICE_FRACTIONS   * DENSITY_ICE   * C_ICE   * Z_ICE)
 
-albedo_avgs = LAND_FRACTIONS * ALBEDO_LAND + WATER_FRACTIONS * ALBEDO_WATER + ICE_FRACTIONS * ALBEDO_ICE
+ALBEDO_AVGS = LAND_FRACTIONS * ALBEDO_LAND + WATER_FRACTIONS * ALBEDO_WATER + ICE_FRACTIONS * ALBEDO_ICE
 
-albedo_skys = np.empty(shape=6); albedo_skys.fill(ALBEDO_SKY)
+ALBEDO_SKYS = np.empty(shape=6); ALBEDO_SKYS.fill(ALBEDO_SKY)
 
-zone_sareas = AREA_FRACTIONS * SAREA_EARTH
+ZONE_SAREAS = AREA_FRACTIONS * SAREA_EARTH
 
 # intra-zonal constants
 boundary_lengths = np.array([2.0015*10**7, 3.4667*10**7, 4.0030*10**7, 3.4667*10**7, 2.0015*10**7])
@@ -72,11 +72,11 @@ thermal_exchange_rates = boundary_lengths * thermal_exchange_coefficients
 print(f'thermal exchange rates:   {thermal_exchange_rates}')
 
 print(f'surface area of Earth: {SAREA_EARTH}')
-print(f'surface area of zone 1: {zone_sareas[0]}')
-print(f'fraction of earth surface area in zone 1: {zone_sareas[0]/SAREA_EARTH}')
+print(f'surface area of zone 1: {ZONE_SAREAS[0]}')
+print(f'fraction of earth surface area in zone 1: {ZONE_SAREAS[0]/SAREA_EARTH}')
 print(f'')
 print(f'')
 
-print(pcz_avgs)
-print(albedo_avgs)
-print(zone_sareas)
+print(PCZ_AVGS)
+print(ALBEDO_AVGS)
+print(ZONE_SAREAS)
