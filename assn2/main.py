@@ -4,14 +4,20 @@ from science.ODEs import ODEs_T
 from utilities.solvers import rk4 
 
 # T0s = np.array([1,2,3,4,5,6])
-# T0s = np.zeros(6)
-T0s = np.array([0.049, 0.055, 0.049, 0.130, 0.123, 0.056])
+T0s = np.zeros(6)
+# T0s = np.array([5.080, 5.567, 5.481, 12.467, 12.151, 4.167])
+T0s = np.array([26.456,  28.244,  32.145,  51.676, 48.116, -28.183])
 
-outps = rk4(fxy=ODEs_T, x0=0, xf=100000, y0=T0s, N=5000)
+x0=50000000
+xf=100000000
+N=5000
+
+outps = rk4(fxy=ODEs_T, x0=x0, xf=xf, y0=T0s, N=N)
 
 plt.plot(outps[0], outps[1])
 plt.legend(['1','2','3','4','5','6'])
+plt.title(f'temp over time for x0={x0}, xf={xf}, h={(xf-x0)/N}')
+plt.suptitle(f'initial conds: {T0s}')
 plt.show()
 
-for i in range(len(outps[1])):
-    print(outps[1][i])
+print(outps[1][len(outps[1])-1])
