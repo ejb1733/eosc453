@@ -7,7 +7,7 @@ def solarflux(t):
     return 1368
 
 # Define function returning volcanism coefficient over time
-def sigma(t, VOLC=False):
+def phi_volcano(t, VOLC=False):
     
     # function inputs:
     #       t: time (seconds) after eruption
