@@ -23,13 +23,19 @@ def phi_volcano(t, VOLC=False):
 
     return interp_secs
 
-# print('yrs'), print(sigma(1*365*24*3600))
-# print('secs'), sigma(365*60*24*60)
+def solarflux(t):
+    if (t <= 4570000000*365*24*60*60):
+        return (1368*0.28/4.57)*t/(1000000000*365*24*60*60) + 1368*0.72
+    
+    else:
+        return 0
+    
 
-# yr_to_secs_factor = 365*24*60*60
-
-# secs = np.arange(0,3.5*yr_to_secs_factor, 10000)
-# e = sigma(secs)
+# secs = np.arange(0, 5000000000*365*24*60*60, 100000000*365*24*60*60)
+# print(secs)
+# e = []
+# for p in secs:
+#     e.append(solarflux(p))
 # print(e)
-# plt.plot(secs/yr_to_secs_factor,e)
+# plt.plot(secs/(365*24*60*60), e)
 # plt.show()
