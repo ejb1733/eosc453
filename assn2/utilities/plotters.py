@@ -26,6 +26,7 @@ def plottr(X, Y, xlab, ylab, title, suptitle, N=6, x0=None, y0=None, xf=None, yf
     plt.xlabel(xlab), plt.ylabel(ylab)
     plt.title(title)
     plt.suptitle(suptitle)
+    plt.legend(['1','2','3','4','5','6'], title='zones')
 
     plt.show()
 
