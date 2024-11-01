@@ -47,6 +47,11 @@ LAND_FRACTIONS = np.array( [0     , 0.7   , 0.20  , 0.32  , 0.50  ,  0.35 ])
 WATER_FRACTIONS = np.array([0.52  , 0.93  , 0.80  , 0.68  , 0.50  ,  0.50 ])
 ICE_FRACTIONS = np.array(  [0.48  , 0     , 0     , 0     , 0     ,  0.15 ])
 
+# snowball Earth conditions!!
+# LAND_FRACTIONS = np.array( [0, 0, 0, 0, 0,  0 ])
+# WATER_FRACTIONS = np.array([0, 0, 0, 0, 0,  0 ])
+# ICE_FRACTIONS = np.array(  [1, 1, 1, 1,1, 1])
+
 # define geometric factors
 # for zones 1-6:  [  z1  ,   z2  ,   z3  ,   z4  ,   z5  ,   z6  ]
 GAMMAS = np.array([0.1076, 0.2277, 0.3045, 0.3045, 0.2277, 0.1076])
