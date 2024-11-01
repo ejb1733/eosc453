@@ -7,7 +7,7 @@ def solarflux(t):
     return 1368
 
 # Define function returning volcanism coefficient over time
-def phi_volcano(t, VOLC=False):
+def phi_volcano(t, year=0):
     
     # function inputs:
     #       t: time (seconds) after eruption
@@ -15,11 +15,18 @@ def phi_volcano(t, VOLC=False):
     # function outputs:
     #       factor: (1 - factor) represents the percent reduction in incoming radiation
 
-    factors = [0.74, 0.81, 0.91, 0.94, 1]
-    t_yrs   = [0,    0.5,  1.5,  2.5,  6.5]
-    t_secs  = [i * 365*24*60*60 for i in t_yrs]
+    yr_to_sec_factor = 365*24*60*60
+    factor_0 = 0.74
+    factor = 0
+
+    factors = [factor_0, (factor+0.81), (factor+0.91), (factor+0.94), 1]
+    t_yrs   = [year,    year+0.5,  year+1.5,  year+2.5,  year+6.5]
+    t_secs  = [i * yr_to_sec_factor for i in t_yrs]
 
     interp_secs = np.interp(t, t_secs, factors)
+
+    if (t < year * yr_to_sec_factor):
+        interp_secs = 1
 
     return interp_secs
 
