@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 # Define function for plotting integrated time series
-def plottr(X, Y, xlab, ylab, title, suptitle, N=6, x0=None, y0=None, xf=None, yf=None):
+def plottr(X, Y, xlab, ylab, title, suptitle, N=6, x0=None, y0=None, xf=None, yf=None, xline=None):
     
     # plottr() inputs:
     #       X (1D np.array):    1D numpy array of independent var
@@ -23,10 +23,14 @@ def plottr(X, Y, xlab, ylab, title, suptitle, N=6, x0=None, y0=None, xf=None, yf
     plot = plt.figure()
 
     plt.plot(X,Y)
+
+    if (xline != None):
+        plt.axvline(x=xline, color='r', linestyle='--')
+
     plt.xlabel(xlab), plt.ylabel(ylab)
     plt.title(title)
     plt.suptitle(suptitle)
-    plt.legend(['1','2','3','4','5','6'], title='zones')
+    plt.legend(['1','2','3','4','5','6',f'eruption year ({xline})'], title='zones')
 
     plt.show()
 
