@@ -31,7 +31,7 @@ def solarflux(t):
         return 0
     
 # Define function returning temperature and zone-dependent albedo
-def albedo_t(albedo_0, albedo_ice, T):
+def albedo_t(albedo_0, albedo_ice, T, ALBEDO_TEMP_DEPENDENT=True):
 
     # function inputs:
     #       albedo_0: zonally-average initial albedo
@@ -44,6 +44,9 @@ def albedo_t(albedo_0, albedo_ice, T):
     Ti = 260
     # threshold temp below which we see albedo increasing quadratically
     T0 = 290
+
+    if not ALBEDO_TEMP_DEPENDENT:
+        return albedo_0
 
     if (T >= T0):
         return albedo_0
