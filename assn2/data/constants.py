@@ -13,7 +13,7 @@ RADIUS_E = 6371 * 10**3
 SAREA_EARTH = 4*np.pi*RADIUS_E**2
 
 # define total emissivity of Earth
-EPSILON = 1
+EPSILON = 0.95
 
 # define atmospheric transmissivity
 TAU = 0.63
