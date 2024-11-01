@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from science.ODEs import ODEs_T
 from utilities.solvers import rk4 
+from utilities.plotters import plottr
 
 # T0s = np.array([1,2,3,4,5,6])
 # T0s = np.zeros(6)
@@ -25,11 +26,10 @@ delta_x_yrs = delta_x / 60 / 60 / 24 / 365
 
 outps = rk4(fxy=ODEs_T, x0=x0, xf=xf, y0=T0s, N=N)
 
-plt.plot(outps[0], outps[1])
-plt.legend(['1','2','3','4','5','6'])
-plt.title(f'temp over time for x0={x0}, xf={xf}, h={(xf-x0)/N}')
-plt.suptitle(f'initial conds: {T0s}')
-plt.show()
+plot = plottr(outps[0], outps[1], 
+              xlab='time (s)', ylab='temprature (K)',
+              title=f'temp over time for x0={x0}, xf={xf}, h={(xf-x0)/N}',
+              suptitle=f'initial conds: {T0s}')
 
 print(outps[1][len(outps[1])-1])
 print(f'years integrated over: {delta_x_yrs}')
