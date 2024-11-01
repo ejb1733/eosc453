@@ -1,29 +1,29 @@
 import numpy as np
 
 from .forcings import solarflux, phi_volcano, albedo_t
-# from data import constants as const
 from data.constants import *
 
 okwtf = 1
 
 # Define function for returning n ODEs in accordance with our temperature model
-def ODEs_T(t,T, VOLC=False, ALBEDO_TEMP_DEPENDENT=True):
+def ODEs_T(t,T, VOLC=True, ALBEDO_TEMP_DEPENDENT=True):
   
     # The inputs to the function are:
     #         t (float): the current time in our box-model evolution
     #         T (1D np.arr): an array of size 6 representing each zone's temperature at time t
     #         VOLC (bool): True when considering effects of volcanism, False otherwise
+    #         ALBEDO_TEMP_DEPENDENT (bool): True when considering albedo as dependent on temperature
 
     # The output of the function is:
-    #         ODEs: an array of size 9 where each entry is the net flux in/out of that box
+    #         ODEs: an array of size 6 where each entry is the temperature of our zone
 
-    # initialize a size 9 array which will be updated with ODEs
+    # initialize a size 6 array which will be updated with ODEs
     n = len(T)
     ODEs = np.zeros(n)
 
     phi = 1
     if VOLC:
-        phi = phi_volcano(t)
+        phi = phi_volcano(t,year=17)
 
     # print(f'GAMMAS: {GAMMAS}, ALBEDOS AVGS: {albedo_avgs}')
 
