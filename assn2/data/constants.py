@@ -65,6 +65,9 @@ ALBEDO_SKYS = np.empty(shape=6); ALBEDO_SKYS.fill(ALBEDO_SKY)
 
 ZONE_SAREAS = AREA_FRACTIONS * SAREA_EARTH
 
+# years-to-seconds conversion factor
+YEARS_TO_SECONDS = 365 * 24 * 60 * 60
+
 # intra-zonal constants
 boundary_lengths = np.array([2.0015*10**7, 3.4667*10**7, 4.0030*10**7, 3.4667*10**7, 2.0015*10**7])
 thermal_exchange_coefficients = np.array([1*10**7, 1*10**7, 1*10**7, 5*10**7, 1*10**7])
