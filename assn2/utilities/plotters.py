@@ -35,9 +35,9 @@ def plottr(X, Y, xlab, ylab, title=None, suptitle=None, N=6, x0=None, y0=None, x
 
     labels = ['90\xb0S - 60\xb0S', '60\xb0S - 30\xb0S','30\xb0S - 0\xb0','0\xb0 - 30\xb0N','30\xb0N - 60\xb0N','60\xb0N - 90\xb0N', 'eruption year']
 
-    plt.legend(labels,
-               loc='upper left',
-               bbox_to_anchor=(1,1))
+    # plt.legend(labels,
+    #            loc='upper left',
+    #            bbox_to_anchor=(1,1))
     
     plt.subplots_adjust(right=0.8)
 

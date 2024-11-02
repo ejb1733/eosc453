@@ -4,10 +4,10 @@ from .forcings import solarflux, phi_volcano, albedo_t
 from data.constants import *
 
 okwtf = 1
-eruption_year = 2
+eruption_year = 25
 
 # Define function for returning n ODEs in accordance with our temperature model
-def ODEs_T(t,T, VOLC=True, ALBEDO_TEMP_DEPENDENT=False):
+def ODEs_T(t,T, VOLC=True, ALBEDO_TEMP_DEPENDENT=True):
   
     # The inputs to the function are:
     #         t (float): the current time in our box-model evolution
