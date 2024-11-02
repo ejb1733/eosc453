@@ -1,11 +1,6 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
-# Define function returning solar flux [1368 W*m^-2] over time
-def solarflux(t):
-
-    return 1368
-
 # Define function returning volcanism coefficient over time
 def phi_volcano(t, year=0):
     
@@ -13,14 +8,24 @@ def phi_volcano(t, year=0):
     #       t: time (seconds) after eruption
     #
     # function outputs:
-    #       factor: (1 - factor) represents the percent reduction in incoming radiation
+    #       interp_secs: (1 - interp_secs) represents the reduction in incoming radiation
 
     yr_to_sec_factor = 365*24*60*60
-    factor_0 = 0.74
-    factor = 0
 
-    factors = [factor_0, (factor+0.81), (factor+0.91), (factor+0.94), 1]
+
+    factor_0 = 0.74
+    factor_2 = 0.48
+
+    # first 'factors' is Pinatubo direct radiation data from Figure 2  in Robock (2000)
+    # second 'factors' is "doubling" Pinatubo direct radiation data
+    factors = [factor_0, (0.81), (0.91), (0.94), 1]
+    # factors = [factor_2, (0.55), (0.75), (0.90), 1]
+
+    # first 't_yrs' is pinatubo's residence timescale,
+    # second 't_yrs' is double pinatubo's residence timescale
     t_yrs   = [year,    year+0.5,  year+1.5,  year+2.5,  year+6.5]
+    # t_yrs   = [year,    year + 1,  year + 3,  year + 5,  year + 13]
+
     t_secs  = [i * yr_to_sec_factor for i in t_yrs]
 
     interp_secs = np.interp(t, t_secs, factors)
@@ -29,13 +34,6 @@ def phi_volcano(t, year=0):
         interp_secs = 1
 
     return interp_secs
-
-def solarflux(t):
-    if (t <= 4570000000*365*24*60*60):
-        return (1368*0.28/4.57)*t/(1000000000*365*24*60*60) + 1368*0.72
-    
-    else:
-        return 0
     
 # Define function returning temperature and zone-dependent albedo
 def albedo_t(albedo_0, albedo_ice, T, ALBEDO_TEMP_DEPENDENT=True):
@@ -61,12 +59,3 @@ def albedo_t(albedo_0, albedo_ice, T, ALBEDO_TEMP_DEPENDENT=True):
         return albedo_0 + (albedo_ice - albedo_0)*((T-T0)**2/(Ti-T0)**2)
     elif (T <= Ti):
         return albedo_ice
-
-# secs = np.arange(0, 5000000000*365*24*60*60, 100000000*365*24*60*60)
-# print(secs)
-# e = []
-# for p in secs:
-#     e.append(solarflux(p))
-# print(e)
-# plt.plot(secs/(365*24*60*60), e)
-# plt.show()
