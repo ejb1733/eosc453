@@ -4,10 +4,10 @@ from .forcings import solarflux, phi_volcano, albedo_t
 from data.constants import *
 
 okwtf = 1
-eruption_year = 75
+eruption_year = 2
 
 # Define function for returning n ODEs in accordance with our temperature model
-def ODEs_T(t,T, VOLC=True, ALBEDO_TEMP_DEPENDENT=True):
+def ODEs_T(t,T, VOLC=True, ALBEDO_TEMP_DEPENDENT=False):
   
     # The inputs to the function are:
     #         t (float): the current time in our box-model evolution
@@ -32,10 +32,11 @@ def ODEs_T(t,T, VOLC=True, ALBEDO_TEMP_DEPENDENT=True):
 
     for r in range(1,n-1):
 
-        if (r == 3 and VOLC):
-            phi = phi_volcano(t, year=eruption_year)
-        else:
-            phi = 1
+        if VOLC:
+            if (r == 3):
+                phi = phi_volcano(t, year=eruption_year)
+            else:
+                phi = 1
         
         # calculate temperature at time t for each ODE
         ODEs[r] = (1/PCZ_AVGS[r]) * (GAMMAS[r] * (1-ALBEDO_SKYS[r])*(1-albedo_t(ALBEDO_AVGS[r],ALBEDO_ICE,abs(T[r]),ALBEDO_TEMP_DEPENDENT))*phi*SOLAR_CONST - EPSILON*TAU*SIGMA_B*T[r]**4) + 1/(ZONE_SAREAS[r]*PCZ_AVGS[r])*(-thermal_exchange_rates[r-1]*(T[r]-T[r-1]) + thermal_exchange_rates[r]*(T[r+1]-T[r]))

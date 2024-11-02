@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 
 # Define function for plotting integrated time series
-def plottr(X, Y, xlab, ylab, title, suptitle, N=6, x0=None, y0=None, xf=None, yf=None, xline=None):
+def plottr(X, Y, xlab, ylab, title=None, suptitle=None, N=6, x0=None, y0=None, xf=None, yf=None, xline=None):
     
     # plottr() inputs:
     #       X (1D np.array):    1D numpy array of independent var
@@ -27,10 +27,19 @@ def plottr(X, Y, xlab, ylab, title, suptitle, N=6, x0=None, y0=None, xf=None, yf
     if (xline != None):
         plt.axvline(x=xline, color='r', linestyle='--')
 
+    if title != None: plt.title(title)
+    if suptitle != None: plt.suptitle(suptitle)
+
     plt.xlabel(xlab), plt.ylabel(ylab)
-    plt.title(title)
-    plt.suptitle(suptitle)
-    plt.legend(['1','2','3','4','5','6',f'eruption year ({xline})'], title='zones')
+    plt.ylim(y0,yf)
+
+    labels = ['90\xb0S - 60\xb0S', '60\xb0S - 30\xb0S','30\xb0S - 0\xb0','0\xb0 - 30\xb0N','30\xb0N - 60\xb0N','60\xb0N - 90\xb0N', 'eruption year']
+
+    plt.legend(labels,
+               loc='upper left',
+               bbox_to_anchor=(1,1))
+    
+    plt.subplots_adjust(right=0.8)
 
     plt.show()
 

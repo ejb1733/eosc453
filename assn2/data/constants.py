@@ -43,8 +43,8 @@ C_ICE   = 2060
 # estimates for zones 1-6: [  z1  ,   z2  ,   z3  ,   z4  ,   z5  ,   z6  ]  
 AREA_FRACTIONS = np.array( [0.0670, 0.1830, 0.2500, 0.2500, 0.1830, 0.0670])
 
-LAND_FRACTIONS = np.array( [0     , 0.7   , 0.20  , 0.32  , 0.50  ,  0.35 ])
-WATER_FRACTIONS = np.array([0.52  , 0.93  , 0.80  , 0.68  , 0.50  ,  0.50 ])
+LAND_FRACTIONS = np.array( [0     , 0.07  , 0.15  , 0.25  , 0.50  ,  0.35 ])
+WATER_FRACTIONS = np.array([0.52  , 0.93  , 0.85  , 0.75  , 0.50  ,  0.50 ])
 ICE_FRACTIONS = np.array(  [0.48  , 0     , 0     , 0     , 0     ,  0.15 ])
 
 # snowball Earth conditions!!
@@ -88,3 +88,4 @@ print(f'')
 print(PCZ_AVGS)
 print(ALBEDO_AVGS)
 print(ZONE_SAREAS)
+print(SIGMA_B)
